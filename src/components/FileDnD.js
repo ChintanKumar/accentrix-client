@@ -76,7 +76,7 @@ function FileDndD(props) {
                 <div style={{ marginTop: 60 }}>
                 <BackupIcon style={{ fontSize: 64 }} />
                 <Typography style={{ fontSize: 16}}>Drag and Drop Audio file here</Typography>
-                <Typography style={{ fontSize: 12  }}>Make sure it is only an audio file</Typography>
+                <Typography style={{ fontSize: 12  }}>Make sure it is only an audio (.wav format) file</Typography>
 
                   </div>
               </>
