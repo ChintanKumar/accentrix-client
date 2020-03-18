@@ -31,11 +31,6 @@ function App() {
           <Grid item>
             <FileDndD setButtonDisable={setDisableAnalyze} />
           </Grid>
-          <Grid>
-            <Button disabled={!disableAnalyze} variant="contained" style={{width: 505}} color="primary">
-              Analyze
-            </Button>
-          </Grid>
           </Grid>
         </header>
       </div>

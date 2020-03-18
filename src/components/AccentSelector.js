@@ -9,6 +9,7 @@ import Select from "@material-ui/core/Select";
 import RecordVoiceOverIcon from '@material-ui/icons/RecordVoiceOver';
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import Grid from "@material-ui/core/Grid";
+import Axios from "axios";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -19,9 +20,19 @@ const useStyles = makeStyles(theme => ({
 
 function AccentSelector() {
   const classes = useStyles();
-
   const [to, setTo] = React.useState('en-us');
   const [from, setFrom] = React.useState('en-in');
+
+  const [toData, setToData] = React.useState([])
+  const [fromData, setFromData] = React.useState([])
+
+  React.useEffect( () => {
+    Axios.get('http://192.168.43.51:5000/lang').then( res => {
+      console.log(res)
+      setToData(res.data.lang.to);
+      setFromData(res.data.lang.from);
+    })
+  }, []);
 
   const handleToChange = (event) => {
     setTo(event.target.value);
@@ -42,7 +53,11 @@ function AccentSelector() {
             <FormControl className={classes.formControl}>
               <InputLabel htmlFor="from-lang">From Accent</InputLabel>
               <Select value={from} onChange={handleFromChange} input={<Input id="from-lang" />}>
-                <MenuItem value={"en-in"}>English (India)</MenuItem>
+                {
+                  fromData.map(function(val){
+                    return <MenuItem key={val.code} value={val.code}>{val.name}</MenuItem>
+                  })
+                }
               </Select>
             </FormControl>
             </Grid>
@@ -63,8 +78,12 @@ function AccentSelector() {
                     value={to}
                     input={<Input />}
                 >
-                    <MenuItem value={"en-us"}>English (US)</MenuItem>
-                    <MenuItem value={"en-uk"}>English (UK)</MenuItem>
+
+                    {
+                  toData.map(function(val){
+                    return <MenuItem key={val.code} value={val.code}>{val.name}</MenuItem>
+                  })
+                }
                 </Select>
               </FormControl>
             </Grid>
